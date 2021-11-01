@@ -1,0 +1,47 @@
+{% extends "groups/group_base.html" %}
+
+{%block pregroup%}
+
+
+<h1>{{group.name}}</h1>
+
+<h2>Member Count: {{group.members.count}}</h2>
+
+{%if '@' in group.name.0 or '#' in group.name.0 or '*' in group.name.0%}
+{% if user in group.members.all %}
+<h3>Created by: @{{user.username}}</h3>
+{%endif%}
+{%endif%}
+<div class="content">
+    {% if user in group.members.all %}
+    <a href="{% url 'groups:leave' slug=group.slug%}" class='btn btn-lg btn-fill btn-warning'><span class='glyphicon glyphicon-remove-circle'></span> Leave</a>
+    
+    {%elif '@' in group.name.0 or '#' in group.name.0 or '*' in group.name.0 %}
+     {%if group.members.count == 0%}
+     <a href="{% url 'groups:join' slug=group.slug%}" class='btn btn-lg btn-fill btn-warning'><span class='glyphicon glyphicon-ok-circle'></span>Join</a>
+     {%endif%}
+     {% else %}
+    <a href="{% url 'groups:join' slug=group.slug%}" class='btn btn-lg btn-fill btn-warning'><span class='glyphicon glyphicon-ok-circle'></span>Join</a>
+    <h1>Hi there</h1>    
+    
+    {% endif %}
+
+</div>
+{%endblock%}
+
+
+{%block group_content%}
+
+<div class="col-md-8">
+{% if group.posts.count == 0 %}
+<h2>Be the first to ask your question!</h2>
+
+{%else %}
+{% if user in group.members.all or '@' in group.name.0 or '#' in group.name.0 or '*' in group.name.0%}
+{% for post in group.posts.all%}
+{%include "posts/_post.html"%}
+{%endfor%}
+{%endif%}
+{%endif%}
+</div>
+{%endblock%}

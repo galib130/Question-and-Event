@@ -1,0 +1,14 @@
+{%extends "posts/post_base.html"%}
+
+{%block post_content%}
+
+
+<div class="col-md-8"
+>
+{%if post.user in post.group.members.all %}
+{%include "posts/_post.html"%}
+</div>
+{%else%}
+<h1>To see your post please Join the group</h1>
+{%endif%}
+{%endblock%}

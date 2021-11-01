@@ -1,0 +1,207 @@
+{%load static%}
+<link rel="stylesheet" href="/static/css/master.css">
+
+     <style>
+       
+ .outer{
+            padding-left: 35%;
+            padding-right: 35%;
+            width:1500px;
+          
+            
+          }
+        .media-body{
+            border-color: rgb(78, 78, 78);
+            border-radius: 10px;
+            border-width: 20px;
+            border-style: solid;
+            padding-left: 10%;
+           border: rgb(78, 78, 78);
+           
+           background-color: rgb(233, 233, 233) ;
+                   
+           
+          }
+          .post-media{
+            border-color: rgb(139, 139, 139);   
+            border-radius: 10px;
+            border-width: 5px;
+            width:fit-content;
+            height:fit-content;
+           padding-left:5%;
+             padding-right:0%;
+           
+           background-color:  rgb(233, 233, 233)  ;
+           
+           border-style: solid;
+           
+           
+
+        }
+
+        .comtext{
+            background-color: aliceblue;
+        }
+        .comtext2{
+            background-color: aliceblue;
+        }
+        .comment{
+            border-style:ridge;
+            border-radius: 10px;
+        }
+
+        @media screen and (max-width:768px){
+ 
+            .outer{
+              padding-left: 5%;
+              padding-right: 0%;
+              width:700px;
+              
+            
+              
+            }
+            .media-body{
+              border-color: rgb(78, 78, 78);
+              border-radius: 10px;
+              border-width: 20px;
+              border-style: solid;
+              padding-left: 1%;
+             border: rgb(78, 78, 78);
+             
+             background-color: rgb(233, 233, 233) ;
+                     
+             
+            }
+            .custnav{
+                position:absolute;
+                height: 100vh;
+                margin-left:60%;
+                width:50%;
+                right:0px;
+                top:0vh;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                background-color: rgb(244, 255, 225);;
+                }
+        }
+        .img{
+            max-width:200px;
+        }
+        
+     </style>
+
+{%if post.user in post.group.members.all %}
+
+
+<div class="outer">
+    <br>
+    <br>
+<div class="post-media">
+   
+  
+    <h2 width="500" height="500">{{post.question_html|safe}}</h2>
+   
+
+{%if post.video%}   
+<video width="800" height="500" class ="video-fluid" controls >
+<source src="{{post.video.url}}" type="video/mp4"/>
+</video>
+{%endif%}
+
+{%if post.image%}
+<img src="{{post.image.url}}" class="img-responsive"width="700" height="700" >
+{%endif%}
+
+{%if post.question.image%}
+<img src="{{post.question.url}}" class="img-responsive"width="200" height="200" >
+{%endif%}
+
+<div class="media-body">
+    {#<strong>{{post.user.username}}</strong>#}
+    <h5 class='media-heading'>
+    <span class='username'>
+        <a href="{% url 'posts:for_user' username=post.user.username%}">@{{post.user.username}}</a>
+    </span>
+    <time class='time'>
+             <a href="{% url 'posts:single' username=post.user.username pk=post.pk%}">
+             {{post.created_at}}
+         </a>
+    </time>
+    Group: <a href="{%url 'groups:single' slug=post.group.slug%}">{{post.group.name}}</a>    
+</h5>
+
+<div class="media-footer">
+    
+    {%if user.is_authenticated and post.user == user%}
+    <a href="{% url 'posts:delete'  pk=post.pk%}" title="delete" class='btn btn-simple'>
+        <span class='glyphicon glyphicon-remove text-danger' aria-hidden="true">
+
+        </span>
+        <span class='text-danger icon-label'>Delete</span>
+    </a>
+    {%endif%}
+    {%if user.is_authenticated and post.user == user%}
+    <a href="{% url 'posts:update'  pk=post.pk%}" title="Update" class='btn btn-simple'>
+        <span class='glyphicon glyphicon-wrench' aria-hidden="true">
+
+        </span>
+        <span class=' icon-label'>Update</span>
+    </a>
+    {%endif%}
+
+    
+</div>
+
+<div class="comment">
+
+    <a class="btn btn-primary" href="{%url 'posts:add_comment' pk=post.pk%}">Answer</a>
+    
+    <h5>Answers:</h5>
+    {%for comment in post.comments.all%}
+    
+
+    {%if user.is_authenticated or comment.approved_comment%}
+    {{comment.created_date}}
+    {%if not comment.approved_comment %}
+
+    <a href="{% url 'posts:comment_remove'  pk=comment.pk %}" title="remove" class='btn btn-simple'>
+        <span class='glyphicon glyphicon-remove text-danger' aria-hidden="true">
+
+        </span>
+        <span class='text-danger icon-label'>Remove</span>
+    </a>
+    
+    <a href="{% url 'posts:comment_approve'  pk=comment.pk %}" title="approve" class='btn btn-simple'>
+        <span class='glyphicon glyphicon-ok text-danger' aria-hidden="true">
+
+        </span>
+        <span class='text-danger icon-label'>Approve</span>
+    </a>
+   
+    {%endif%}
+    
+    
+    <h3>{{comment.text|safe|linebreaks}}</h3>
+    <p class="comtext">Answered by:{{comment.author}}</p>
+    
+<form action="{% url 'posts:like' pk=comment.pk%}" method="POST">
+    {%csrf_token%}
+    {%if user in comment.likes.all %}
+    <button type="submit", name="post_id",value="{{post.id}}",class="btn btn-primary btn-sm" style="background-color: rgb(137, 137, 255);">unVote</button>: {{comment.total_likes}} 
+    {%else%}
+    <button type="submit", name="post_id",value="{{post.id}}",class="btn btn-primary btn-sm" style="background-color: rgb(240, 240, 248);">Vote</button>: {{comment.total_likes}} 
+    {%endif%}
+</form>
+    {%endif%}
+    <br>    
+    {%endfor%}
+   
+
+</div>
+</div>
+
+
+</div>
+</div>
+{%endif%}

@@ -1,0 +1,61 @@
+{%extends 'base.html'%}
+{% block content%}
+
+
+{%load static%}
+<style>
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 5px;
+      }
+</style>
+
+    
+
+    <br>
+<br>
+
+<center>
+    <h1>Welcome to UniQ</h1>
+    <h1>What You get From this Website:</h1>
+      
+      <div class="row">
+        <div class="column">
+           <h1> <a href="{%url 'posts:all'%}">  <img width="300px" height="300px" src="static/pics/pic4.jfif" style="border-radius: 10px;"></a></h1>
+        </div>
+        
+        <div class="column">
+            <a href="{%url 'posts:lcc_all'%}">  <img width="300px" height="300px" src="static/pics/pic5.jfif" style="border-radius: 10px;"></a>
+        </div>
+        <div class="column">
+          <h1>  <a href="{%url  'posts:event_all'%}"> <img width="300px" height="300px" src="static/pics/pic6.jfif" style="border-radius: 10px;"></a></h1>
+        </div>
+      </div>
+
+       <h3><li>A Q&A forum regarding any University Topic</li></h3>
+    <h3><li>A content creator forum where you can post your content and explore the works of other content creators</li></h3>
+    <h3> <li>An Event Management forum where you can post about any workshops, tournaments,seminars etc</li></h3>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h1>Group Conventions</h1>
+<h3><li>An @ at start of group name will be an event Group</li></h3>
+
+<h3><li>An # at start of group name will be a Content Creator Group</li></h3>
+<h3><li>Any other group Name will represent a Q&A group</li></h3>
+    <h1>Everybody is free to open a group</h1>
+<br>
+<br>
+<br>
+<h1>A Project By Team Tea Bag</h1>
+
+
+</center>
+   
+
+{%endblock%}
+

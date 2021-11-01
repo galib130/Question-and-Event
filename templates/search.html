@@ -1,0 +1,31 @@
+{% extends "posts/post_base.html"%}
+
+
+
+{%block post_content%}
+<div class="col-md-8">
+    
+    
+    
+    {%for post in allPosts%}
+    
+    {% if user in post.group.members.all %}
+      
+    {%include "posts/_post.html"%}
+  
+    
+    
+    {%endif%}
+   
+  
+   
+    {%empty%}
+    <h1>Post does not exist would you like to create one with this searchword?</h1>
+    
+   
+    {%endfor%}
+    
+    
+</div>
+
+{%endblock%}

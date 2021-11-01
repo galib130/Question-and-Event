@@ -1,0 +1,27 @@
+{%extends "posts/post_base.html"%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/master.css' %}"> 
+{%block prepost%}
+
+<div class="col-md-5">
+    <h1  style = "color:blue">@{{post_user.username}}</h1>
+</div>
+
+{%endblock%}
+
+{%block post_content%}
+<div class ="col-md-8">
+    {%for post in post_list%}
+    {% if user in post.group.members.all and '@' not in post.group.name.0 and '#' not in post.group.name.0 %}
+    {%include "posts/_post.html"%}
+    {%endif%}
+    {%empty%}
+    
+    <center><h1>You have no post to show</h1></center>
+    
+    {%endfor%}
+
+  
+</div>
+
+{%endblock%}

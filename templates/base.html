@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}"> 
+ 
+    <title>Q&E</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+     <link rel="stylesheet" href="{% static '/css/master.css' %}">
+     <style>
+        section
+        {
+          
+          
+           height:100%;
+            width:100%;
+        
+          margin-top: auto;
+          margin-bottom: auto;
+          margin-left: auto;
+          margin-right: auto;
+          align-content: center;
+        
+        background-color: rgb(240, 233, 233);;  
+      background-size:cover;
+      background-repeat: repeat;  
+      background-position: center;
+      
+           }
+        @keyframes change{
+          0%
+          {
+            background-position:0 50%;
+        
+          }
+          50%
+          {
+            background-position: 100% 50%;
+        
+          }
+          100%
+          {
+              background-position: 0 50%;
+          }
+        
+        }
+        
+        #Red,#Blue{
+          visibility:visible;
+          margin-left: 45%;
+          margin-right: 30%;
+          /* margin-right: 50%; */
+          /* margin-bottom: 20vh; */
+          margin-top: -15vh;
+          font-size:5vh;
+          /* text-align: center; */
+          /* height: 20%; */
+        
+          color: red;
+          position: relative;
+        
+          /* font-stretch: expanded; */
+        
+          /* margin-top: -860px; */
+          /* padding: 3% 3%; */
+        }
+        
+        
+         #f1,#f2,#f3,#f4,#f5,#f6,#f7,#f8,#f9
+        {
+           width:30%;
+          height:30%;
+          /* color: #99d8ea; */
+        }
+        
+        
+        
+      
+        body{
+           
+          background-color: rgb(240, 233, 233);;
+          
+        }
+        div {
+        
+       
+          width:fit-content;
+          padding-left: 0%;
+          border-radius: 10px;
+          background-color: rgb(240, 233, 233);;
+         
+        }
+        #h3{
+            width:fit-content; 
+        }
+        
+
+        p{
+           
+           
+            background-color:  rgb(233, 233, 233);
+            background-size:contain;
+        
+            border-color: black;
+            border-width:0.5px;
+            border-style:hidden;
+            border-radius: 5px;
+           
+              width: fit-content;
+           
+           
+
+        }
+        
+        .custcontent{
+            border-style: solid ;
+
+           width:fit-content;
+           background-color: rgb(240, 233, 233);;
+           
+        }
+
+        .container{
+            border-style: solid;
+            border-color: rgb(29, 29, 29);
+            background-color: rgb(240, 233, 233);;
+          width:auto;
+           
+        }
+        .navbar-center{
+            width:fit-content;
+            background-color: rgb(240, 233, 233);;
+        }
+        #cust{
+          background-color:rgb(240, 233, 233);  ;
+        }
+        #navbar{
+          background-color:rgb(240, 233, 233); ;
+        }
+              </style>
+        <link rel="stylesheet" href="/static/css/master.css"> 
+
+</head>
+
+<body>
+  <section>
+    
+   
+    <nav class='navbar custnav navbar-fixed-top' role='navigation' id='navbar'>
+      <div class="burger">
+              
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+   </div> 
+      
+       
+        <div class='container'>
+            
+               <ul  class='nav navbar-nav navbar-center ' id="cust" >
+                
+
+                {% if user.is_authenticated%}  <!-- if user is logged in-->
+               
+                  
+               <li><a  href="{% url 'home'%}"><h4 style="color: black;"><i><b> Home</b></i></h4></a></li>        
+                <li><a href="{%url 'posts:all'%}"><h4 style="color: black;"><i><b>Q&A</b></i></h4></a></li>
+              
+                <li><a href="{%url  'posts:event_all'%}"><h4 style="color: black;"><i><b>Event</b></i></h4></a></li>
+               <!--- <li><a href="{%url 'posts:lcc_all'%}"><h3 style="color: black;"><i><b>Content</b></i></h3></a></li>-->
+                <li><a href="{%url 'posts:create'%}"><h4 style="color: black;"><i><b>Post</b></i></h4></a></h4></li>
+                <li><a href="{%url 'groups:all'%}"><h4 style="color: black;"><i><b>Groups</b></i></h4></a></li>
+                <li><a href="{%url 'groups:create'%}"><h4 style="color: black;"><i><b>Create Group</b></i></h4></a></li>
+               
+                <li><a href="{%url 'posts:for_user' username=user.username%}"><h4 style="color: black;"><b><i>Profile</b></i></h4></a></li>
+              
+                <li><h1><form method="GET" action="/search" class="form-inline my-2 my-lg-0">
+                  <input type="Search" class="form-control mr-sm-2" placegolder="search" name='search' id="search" ></>
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Post</button>
+              </form></h1> </li>
+
+              <li><h1><form method="GET" action="/search_group" class="form-inline my-2 my-lg-0">
+                <input type="Search" class="form-control mr-sm-2" placegolder="search_group" name='search_group' id="search_group" >
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Group</button>
+            </form></h1></li>
+            <li><a href="{% url 'accounts:logout'%}"><h4 style="color: black;"><i><b>Log Out</b></i></h4></a></li>
+           
+          
+                {%else%}
+                <li><a href="{%url 'groups:all'%}"><h4 style="color: black;"><i><b>Groups</b></i></h4></a></li>
+                <li><a href="{%url 'accounts:login'%}"><h4 style="color: black;"><i><b>Log In</b></i></h4></a></li>
+                <li><a href="{% url 'accounts:signup'%}"><h4 style="color: black;"><i><b>Sign Up</b></i></h4></a></li>
+               
+                
+
+                {% endif %}
+              
+            </ul>
+           
+             
+        </div>
+      
+    </nav>
+    <br>
+    <br> 
+    <br>
+    <br>
+   <br>
+    
+    
+
+    <div class="container custcontent">
+      
+       <br>
+        {%block content%}
+       
+        {%endblock%}
+    </div>
+
+</body>
+</section>
+
+</html>
